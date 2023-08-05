@@ -27,8 +27,11 @@ class EditPlayer(graphene.Mutation):
     player = graphene.Field(PlayerType)
 
     @classmethod
-    def mutate(cls, root, info, **kwargs):        
-        new_player = Player.objects.get(pk=kwargs.get('id'))
+    def mutate(cls, root, info, **kwargs):     
+        try:   
+            new_player = Player.objects.get(pk=kwargs.get('id'))
+        except Player.DoesNotExist:
+            raise Exception('Player does not exist')
 
         if 'name' in kwargs:
             new_player.name=kwargs.get('name') 
