@@ -9,7 +9,7 @@ class Player(models.Model):
     name = models.CharField(max_length=15)
 
     # relations
-    vehicle = models.PositiveSmallIntegerField()
+    vehicle = models.UUIDField(primary_key=False, default=uuid.uuid4, editable=False, unique=True)
 
     def __str__(self):
         return "Player for Vehicle(id: {})".format(self.vehicle)
