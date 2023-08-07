@@ -7,7 +7,9 @@ from django.db import models
 class Player(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     name = models.CharField(max_length=15)
-    # vehicle = models.VehicleField()
+
+    # relations
+    vehicle = models.PositiveSmallIntegerField()
 
     def __str__(self):
-        return self.name
+        return "Player ({}) for Vehicle(id: {})".format(self.player)
