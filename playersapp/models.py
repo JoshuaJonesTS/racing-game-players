@@ -12,4 +12,4 @@ class Player(models.Model):
     vehicle = models.PositiveSmallIntegerField(default=1)
 
     def __str__(self):
-        return "Player ({}) for Vehicle(id: {})".format(self.player)
+        return "Player ({}) for Vehicle(id: {})".format(self.vehicle)
