@@ -9,7 +9,7 @@ class Player(models.Model):
     name = models.CharField(max_length=15)
 
     # relations
-    vehicle = models.PositiveSmallIntegerField()
+    vehicle = models.PositiveSmallIntegerField(default=1)
 
     def __str__(self):
         return "Player ({}) for Vehicle(id: {})".format(self.player)
