@@ -1,12 +1,11 @@
 import graphene
 from .types import PlayerType
 from playersapp.models import Player
-# from ... import Vehicle # This is where graphene federation comes into play
 
 class CreatePlayer(graphene.Mutation):
     class Arguments:
         name = graphene.String(required=True)
-        # vehicle = graphene.Schema(require=True) # graphene federation
+        vehicle = graphene.UUID(required=True)  # graphene federation
        
     player = graphene.Field(PlayerType)
 
@@ -14,7 +13,7 @@ class CreatePlayer(graphene.Mutation):
     def mutate(cls, root, info, **kwargs):    
         new_player = Player.objects.create(
             name = kwargs.get('name'),
-            # vehicle = kwargs.get('vehicle') # graphene federation
+            vehicle = kwargs.get('vehicle') # graphene federation
         )
         return CreatePlayer(player=new_player)
     
@@ -22,7 +21,7 @@ class EditPlayer(graphene.Mutation):
     class Arguments:
         id = graphene.UUID(required=True)
         name = graphene.String()
-        # vehicle = graphine.Schema() # graphene federation
+        vehicle = graphene.UUID(required=True) # graphene federation
 
     player = graphene.Field(PlayerType)
 
@@ -36,8 +35,8 @@ class EditPlayer(graphene.Mutation):
         if 'name' in kwargs:
             new_player.name=kwargs.get('name') 
 
-        # if 'vehicle' in kwargs:
-        #     new_player.vehicle=kwargs.get('vehicle') # graphene federation
+        if 'vehicle' in kwargs:
+            new_player.vehicle=kwargs.get('vehicle') # graphene federation
 
         new_player.save()
 
